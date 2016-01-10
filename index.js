@@ -16,7 +16,13 @@ exports = module.exports = function(file) {
 };
 
 exports.default = function(file) {
-    if(!fs.existsSync(file) && fs.existsSync(file + '.js')) {
+    if(
+        (
+            !fs.existsSync(file)
+            && fs.existsSync(file + '.js')
+        )
+        || fs.statSync(file).isDirectory()
+    ) {
         return exports.byExt.js(file);
     }
 
