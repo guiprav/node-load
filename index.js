@@ -1,5 +1,7 @@
 'use strict';
 
+let fs = require('fs');
+
 let path = require('path');
 let relPath = path.relative;
 let baseName = path.basename;
@@ -14,6 +16,10 @@ exports = module.exports = function(file) {
 };
 
 exports.default = function(file) {
+    if(!fs.existsSync(file) && fs.existsSync(file + '.js')) {
+        return exports.byExt.js(file);
+    }
+
     return readTextFileSync(file);
 };
 
